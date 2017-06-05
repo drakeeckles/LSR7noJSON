@@ -13,7 +13,6 @@ app.localization.registerView('highschoolsview');
 (function(parent) {
     var dataProvider = app.data.jsonDataProvider2,
         /// start global model properties
-
         /// end global model properties
         fetchFilteredData = function(paramFilter, searchFilter) {
             var model = parent.get('highschoolsviewModel'),
@@ -48,8 +47,7 @@ app.localization.registerView('highschoolsview');
             type: 'json',
             transport: {
                 read: {
-                    url: dataProvider.url,
-                    dataType: 'json'
+                    url: dataProvider.url
                 }
             },
             error: function(e) {
@@ -75,14 +73,12 @@ app.localization.registerView('highschoolsview');
                     }
                 }
             },
-            serverFiltering: false,
-
+            serverFiltering: true,
             serverSorting: true,
             sort: {
                 field: 'CreatedAt',
                 dir: 'asc'
             },
-
         },
         /// start data sources
         /// end data sources
@@ -152,7 +148,15 @@ app.localization.registerView('highschoolsview');
 
                 highschoolsviewModel.setCurrentItemByUid(uid);
 
+   var navbar = $("#nav");
+    navbar.css('background', itemModel.get('Building_BackgroundColor'));
+    
                 /// start detail form show
+             function go_Website_HIGH() {
+                       window.open(itemModel.get('Building_Website_HIGH'), '_blank');
+            }
+
+
                 /// end detail form show
             },
             setCurrentItemByUid: function(uid) {
@@ -216,11 +220,8 @@ app.localization.registerView('highschoolsview');
             }
         }
 
-        if (!highschoolsviewModel.get('dataSource')) {
-            dataSource = new kendo.data.DataSource(dataSourceOptions);
-            highschoolsviewModel.set('dataSource', dataSource);
-        }
-
+        dataSource = new kendo.data.DataSource(dataSourceOptions);
+        highschoolsviewModel.set('dataSource', dataSource);
         fetchFilteredData(param);
     });
 
