@@ -13,6 +13,7 @@ app.localization.registerView('middleschoolsview');
 (function(parent) {
     var dataProvider = app.data.jsonDataProvider1,
         /// start global model properties
+
         /// end global model properties
         fetchFilteredData = function(paramFilter, searchFilter) {
             var model = parent.get('middleschoolsviewModel'),
@@ -47,7 +48,8 @@ app.localization.registerView('middleschoolsview');
             type: 'json',
             transport: {
                 read: {
-                    url: dataProvider.url
+                    url: dataProvider.url,
+                    dataType: 'json'
                 }
             },
             error: function(e) {
@@ -73,12 +75,14 @@ app.localization.registerView('middleschoolsview');
                     }
                 }
             },
-            serverFiltering: true,
+            serverFiltering: false,
+
             serverSorting: true,
             sort: {
                 field: 'CreatedAt',
                 dir: 'asc'
             },
+
         },
         /// start data sources
         /// end data sources
@@ -212,8 +216,11 @@ app.localization.registerView('middleschoolsview');
             }
         }
 
-        dataSource = new kendo.data.DataSource(dataSourceOptions);
-        middleschoolsviewModel.set('dataSource', dataSource);
+        if (!middleschoolsviewModel.get('dataSource')) {
+            dataSource = new kendo.data.DataSource(dataSourceOptions);
+            middleschoolsviewModel.set('dataSource', dataSource);
+        }
+
         fetchFilteredData(param);
     });
 

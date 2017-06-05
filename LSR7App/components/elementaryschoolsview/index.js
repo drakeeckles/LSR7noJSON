@@ -13,6 +13,7 @@ app.localization.registerView('elementaryschoolsview');
 (function(parent) {
     var dataProvider = app.data.jsonDataProvider,
         /// start global model properties
+
         /// end global model properties
         fetchFilteredData = function(paramFilter, searchFilter) {
             var model = parent.get('elementaryschoolsviewModel'),
@@ -47,7 +48,8 @@ app.localization.registerView('elementaryschoolsview');
             type: 'json',
             transport: {
                 read: {
-                    url: dataProvider.url
+                    url: dataProvider.url,
+                    dataType: 'json'
                 }
             },
             error: function(e) {
@@ -73,12 +75,14 @@ app.localization.registerView('elementaryschoolsview');
                     }
                 }
             },
-            serverFiltering: true,
+            serverFiltering: false,
+
             serverSorting: true,
             sort: {
                 field: 'CreatedAt',
                 dir: 'asc'
             },
+
         },
         /// start data sources
         /// end data sources
@@ -212,8 +216,11 @@ app.localization.registerView('elementaryschoolsview');
             }
         }
 
-        dataSource = new kendo.data.DataSource(dataSourceOptions);
-        elementaryschoolsviewModel.set('dataSource', dataSource);
+        if (!elementaryschoolsviewModel.get('dataSource')) {
+            dataSource = new kendo.data.DataSource(dataSourceOptions);
+            elementaryschoolsviewModel.set('dataSource', dataSource);
+        }
+
         fetchFilteredData(param);
     });
 

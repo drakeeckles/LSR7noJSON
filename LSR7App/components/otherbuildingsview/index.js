@@ -13,6 +13,7 @@ app.localization.registerView('otherbuildingsview');
 (function(parent) {
     var dataProvider = app.data.jsonDataProvider3,
         /// start global model properties
+
         /// end global model properties
         fetchFilteredData = function(paramFilter, searchFilter) {
             var model = parent.get('otherbuildingsviewModel'),
@@ -47,7 +48,8 @@ app.localization.registerView('otherbuildingsview');
             type: 'json',
             transport: {
                 read: {
-                    url: dataProvider.url
+                    url: dataProvider.url,
+                    dataType: 'json'
                 }
             },
             error: function(e) {
@@ -73,12 +75,14 @@ app.localization.registerView('otherbuildingsview');
                     }
                 }
             },
-            serverFiltering: true,
+            serverFiltering: false,
+
             serverSorting: true,
             sort: {
                 field: 'CreatedAt',
                 dir: 'asc'
             },
+
         },
         /// start data sources
         /// end data sources
@@ -212,8 +216,11 @@ app.localization.registerView('otherbuildingsview');
             }
         }
 
-        dataSource = new kendo.data.DataSource(dataSourceOptions);
-        otherbuildingsviewModel.set('dataSource', dataSource);
+        if (!otherbuildingsviewModel.get('dataSource')) {
+            dataSource = new kendo.data.DataSource(dataSourceOptions);
+            otherbuildingsviewModel.set('dataSource', dataSource);
+        }
+
         fetchFilteredData(param);
     });
 
