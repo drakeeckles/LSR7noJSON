@@ -28,6 +28,32 @@
     <script src="components/lswhs/index.js"></script>
     <script src="components/allBuildingsView/index.js"></script>
     <script src="components/homeView/index.js"></script>
+    <div data-role="layout" data-id="main">
+        <header data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+                <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left"><i class="fa fa-bars" aria-hidden="true" style="color: white; margin-left: 0;"></i></a>
+            </div>
+        </header>
+    </div>
+
+    <div data-role="layout" data-id="main-nonav">
+        <header data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+        </header>
+    </div>
+
+    <div id="appDrawer" data-role="drawer" data-title="Menu" data-swipe-to-open="false">
+        <header data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title" class="menu-title"></span>
+            </div>
+        </header>
+        <ul id="navigation-container" data-role="listview">
+        </ul>
+    </div>
     <!-- START_CUSTOM_CODE_kendoUiMobileApp -->
     <div id="appDrawer" data-role="drawer" data-title="Menu">
         <header data-role="header">
